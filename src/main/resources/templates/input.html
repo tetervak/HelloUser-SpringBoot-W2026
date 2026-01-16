@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <title>Input</title>
+</head>
+<body>
+<header>
+    <h1>Input</h1>
+</header>
+<main>
+    <h2>Enter your name</h2>
+    <form th:action="@{/output}"
+          th:object="${appUser}">
+
+        <th:block th:unless="${#fields.errors('*').isEmpty()}">
+            <h3 class="error">Input errors</h3>
+            <ul class="error">
+                <li th:each="e: ${#fields.errors('*')}" th:text="${e}">Message</li>
+            </ul>
+        </th:block>
+
+        <p>
+            <label for="fn">First Name:</label>
+            <input id ="fn" th:field="*{firstName}">
+        </p>
+
+        <p>
+            <label for="ln">Last Name:</label>
+            <input id ="ln" th:field="*{lastName}">
+        </p>
+
+        <input type="submit">
+    </form>
+
+</main>
+<footer>
+    <h3>
+        Running on <span class="server" th:text="Java">HTML</span> server
+    </h3>
+</footer>
+</body>
+</html>
