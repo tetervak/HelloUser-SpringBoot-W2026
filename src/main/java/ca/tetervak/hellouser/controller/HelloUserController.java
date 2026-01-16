@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -17,27 +18,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class HelloUserController {
 
     @GetMapping("/")
-    public String input(Model model){
+    public String input(){
         log.trace("called input()");
-        model.addAttribute("appUser", new AppUser());
         return "input";
     }
 
 
     @GetMapping("/output")
     public String output(
-            @Validated @ModelAttribute AppUser appUser,
-            BindingResult bindingResult,
-            Model model){
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            Model model
+    ){
 
         log.trace("called output()");
-        log.debug("Received data: user = {}", appUser);
+        log.debug("Received data: firstName = {}, lastName= {}", firstName, lastName);
 
+        AppUser appUser = new AppUser(firstName, lastName);
         model.addAttribute("appUser", appUser);
-
-        if(bindingResult.hasErrors()){
-            return "input";
-        }
 
         return "output";
     }

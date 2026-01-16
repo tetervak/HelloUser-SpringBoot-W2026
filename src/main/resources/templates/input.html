@@ -11,24 +11,16 @@
 </header>
 <main>
     <h2>Enter your name</h2>
-    <form th:action="@{/output}"
-          th:object="${appUser}">
-
-        <th:block th:unless="${#fields.errors('*').isEmpty()}">
-            <h3 class="error">Input errors</h3>
-            <ul class="error">
-                <li th:each="e: ${#fields.errors('*')}" th:text="${e}">Message</li>
-            </ul>
-        </th:block>
+    <form th:action="@{/output}">
 
         <p>
             <label for="fn">First Name:</label>
-            <input id ="fn" th:field="*{firstName}">
+            <input id ="fn" th:name="firstName">
         </p>
 
         <p>
             <label for="ln">Last Name:</label>
-            <input id ="ln" th:field="*{lastName}">
+            <input id ="ln" th:name="lastName">
         </p>
 
         <input type="submit">
